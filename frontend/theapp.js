@@ -163,7 +163,7 @@ let theapp = {
         theapp.showMainLoader();
         worker_api.command('list_all', {
             data: {
-                drive: theapp.device
+                drive: 'D:/Music/Phonie/'
             },
             success: (folder) => {
                 folder_list.setFolders(folder);

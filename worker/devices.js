@@ -99,7 +99,7 @@ let devices = {
 
     listAll: async (drive, cb) => {
 
-        let files = await filesystem.list(drive.path);
+        let files = await filesystem.list(drive);
 
         let out = {
             tonuino_folder: [],
@@ -121,11 +121,11 @@ let devices = {
                 title: [],
                 type: 'other',
                 filetype: null,
-                path: path.join(drive.path, file),
+                path: path.join(drive, file),
                 image: null
             };
 
-            if(fs.lstatSync(path.join(drive.path, file)).isDirectory()) {
+            if(fs.lstatSync(path.join(drive, file)).isDirectory()) {
 
                 /*
                  * sende status an main
@@ -138,9 +138,9 @@ let devices = {
                     folder.number = parseInt(file);
                     if (folder.number > 0) {
 
-                        folder.image = await filesystem.getFirstAlbumArtCover(path.join(drive.path, file), file);
+                        folder.image = await filesystem.getFirstAlbumArtCover(path.join(drive, file), file);
                         folder.type = 'tonuino_folder';
-                        folder.title = await filesystem.getAllMp3FromFolder(path.join(drive.path, file),{
+                        folder.title = await filesystem.getAllMp3FromFolder(path.join(drive, file),{
                             status: true,
                             status_text: status_message
                         });
